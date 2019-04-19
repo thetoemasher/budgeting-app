@@ -1,9 +1,9 @@
-import React, { Component } from './node_modules/react';
-import axios from './node_modules/axios'
+import React, { Component } from 'react';
+import axios from 'axios'
 import {updateStore} from '../../redux/reducer'
-import {connect} from './node_modules/react-redux'
+import {connect} from 'react-redux'
 import {emailCheck, passwordCheck} from '../../_utils/formValidation'
-import {Link} from './node_modules/react-router-dom'
+import {Link} from 'react-router-dom'
 
 class Register extends Component {
     constructor() {

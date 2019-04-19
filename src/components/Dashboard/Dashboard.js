@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Categories from './Categories'
-import Payments from './Payments'
+// import Categories from './Categories'
+// import Payments from './Payments'
 import Sidebar from '../Sidebar/Sidebar'
 import axios from 'axios'
 import {connect} from 'react-redux'

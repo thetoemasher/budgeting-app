@@ -1,4 +1,6 @@
 const bcrypt = require('bcrypt')
+const _ = require('lodash')
+const {formatMonths} = require('../../_utils/formatMonths')
 module.exports = {
     login:	async (req, res)=>{
 		try {
@@ -15,7 +17,8 @@ module.exports = {
 			}
 			delete user[0].password
 			req.session.user = user[0]
-			return res.status(200).send({user: req.session.user})
+			let months = await formatMonths(db, user[0].user_id)
+			return res.status(200).send({user: req.session.user, months})
 		} catch (error) {
 			console.log('error logging in user: ', error)
 			res.status(500).send({error})
@@ -36,8 +39,15 @@ module.exports = {
 
 			let newUser = await db.auth.create_user([email, first_name, last_name, hash]);
 			req.session.user = newUser[0]
-
-			return res.status(200).send({user: req.session.user})
+			let date = new Date()
+			let month = date.getMonth()
+			let monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+			let monthName = monthNames[month]
+			if(month < 10) month = '0' + (month + 1)
+			let year = date.getFullYear()
+			await db.months.add_month([newUser[0].user_id, month, monthName, year])
+			let months = formatMonths(db, newUser[0].user_id)
+			return res.status(200).send({user: req.session.user, months})
 
 		} catch (error) {
 			console.log('error registering user: ', error)
@@ -45,7 +55,13 @@ module.exports = {
 		}
 	},
 	currentUser: async (req, res) => {
-		res.status(200).send({user: req.session.user})
+		const db = req.app.get('db')
+		if(req.session.user) {
+			let months = await formatMonths(db, req.session.user.user_id)
+			res.status(200).send({user: req.session.user, months})
+		} else {
+			res.status(200)
+		}
 	},
 	logout: (req, res) => {
 		req.session.destroy()

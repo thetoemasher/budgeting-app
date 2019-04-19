@@ -4,6 +4,9 @@ const express=require('express')
 	, bodyPar=require('body-parser')
     , expressSession = require('express-session')
 	, authCtrl = require('./controllers/auth_controller.js')
+	, catCtrl = require('./controllers/categories_controller.js')
+	, monthlyCatCtrl = require('./controllers/monthly_categories_controller.js')
+	, monthsCtrl = require('./controllers/months_controller.js')
     , path = require('path')
     
 const app=express()
@@ -36,7 +39,15 @@ app.post('/auth/register', authCtrl.register)
 app.get('/auth/user', authCtrl.currentUser)
 app.get('/auth/logout', authCtrl.logout)
 
+//USER CATEGORIES ENDPOINTS
+app.get('/api/categories', catCtrl.getCategories)
 
+//USER MONTHLY CATEGORIES ENDPOINTS
+app.get('/api/monthly-categories', monthlyCatCtrl.getMonthlyCategories)
+app.post('/api/new-monthly-category', monthlyCatCtrl.addMonthlyCategory)
+
+//MONTHS ENDPOINTS
+app.get('/api/get-month/:month/:year', monthsCtrl.getMonth)
 
 // app.get('*', (req, res) => {
 // 	res.sendFile(path.join(__dirname, '../build/index.html'))

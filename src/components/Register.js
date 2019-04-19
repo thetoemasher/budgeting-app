@@ -54,6 +54,7 @@ class Register extends Component {
           axios.post('/auth/register', this.state).then(results => {
             if(results.data.user) {
               this.props.updateStore({user: results.data.user})
+              this.props.updateStore({months: results.data.months})
               this.props.history.push('/dashboard')
             } else if (results.data.error) {
               console.log('asdfadsf', results.data.error)

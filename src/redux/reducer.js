@@ -1,4 +1,6 @@
 let initialState = {
+    months: [],
+    monthlyCategories: [],
     categories: [],
     payments: [],
     user: null

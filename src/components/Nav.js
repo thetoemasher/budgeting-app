@@ -13,7 +13,6 @@ function logout(props) {
 
 function Nav(props) {
     const {user} = props
-    console.log(props)
     return (
         <div>
             <h1>Budgeting App Woo</h1>

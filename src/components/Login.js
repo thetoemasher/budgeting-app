@@ -10,8 +10,8 @@ class Login extends Component {
     constructor() {
         super()
         this.state = {
-            email: '',
-            password: '',
+            email: 'tomeschcody@gmail.com',
+            password: 'Password06',
             error: ''
         }
     }
@@ -46,9 +46,9 @@ class Login extends Component {
         axios.post('/auth/login', this.state).then(results => {
           if(results.data.user) {
             this.props.updateStore({user: results.data.user})
+            this.props.updateStore({months: results.data.months})
             this.props.history.push('/dashboard')
           } else if (results.data.error) {
-            console.log('asdfadsf', results.data.error)
             this.setState({error: results.data.error})
           }
         })

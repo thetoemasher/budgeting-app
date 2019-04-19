@@ -4,8 +4,8 @@ const express=require('express')
 	, bodyPar=require('body-parser')
     , expressSession = require('express-session')
 	, authCtrl = require('./controllers/auth_controller.js')
-	, catCtrl = require('./controllers/categories_controller.js')
-	, monthlyCatCtrl = require('./controllers/monthly_categories_controller.js')
+	// , catCtrl = require('./controllers/categories_controller.js')
+	// , monthlyCatCtrl = require('./controllers/monthly_categories_controller.js')
 	, monthsCtrl = require('./controllers/months_controller.js')
     , path = require('path')
     
@@ -46,6 +46,8 @@ app.get('/auth/logout', authCtrl.logout)
 
 
 //MONTHS ENDPOINTS
+app.get('/api/months', monthsCtrl.getMonths)
+app.get('/api/months/:month_id', monthsCtrl.getOneMonth)
 
 
 // app.get('*', (req, res) => {

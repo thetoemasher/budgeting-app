@@ -4,7 +4,7 @@ const express=require('express')
 	, bodyPar=require('body-parser')
     , expressSession = require('express-session')
 	, authCtrl = require('./controllers/auth_controller.js')
-	// , catCtrl = require('./controllers/categories_controller.js')
+	, categoriesCtrl = require('./controllers/categories_controller.js')
 	// , monthlyCatCtrl = require('./controllers/monthly_categories_controller.js')
 	, monthsCtrl = require('./controllers/months_controller.js')
     , path = require('path')
@@ -40,14 +40,18 @@ app.get('/auth/user', authCtrl.currentUser)
 app.get('/auth/logout', authCtrl.logout)
 
 //USER CATEGORIES ENDPOINTS
-
+app.get('/api/categories', categoriesCtrl.getCategories)
+app.post('/api/categories', categoriesCtrl.addCategory)
+app.delete('/api/categories/:category_id', categoriesCtrl.deleteCategory)
+app.put('/api/categories/:category_id', categoriesCtrl.updateCategory)
 
 //USER MONTHLY CATEGORIES ENDPOINTS
 
 
 //MONTHS ENDPOINTS
 app.get('/api/months', monthsCtrl.getMonths)
-app.get('/api/months/:month_id', monthsCtrl.getOneMonth)
+app.get('/api/months/:month/:year', monthsCtrl.getMonthByMonthAndYear)
+app.get('/api/months/:month_id', monthsCtrl.getMonthById)
 
 
 // app.get('*', (req, res) => {

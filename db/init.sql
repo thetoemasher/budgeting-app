@@ -9,7 +9,8 @@ create table users(
 create table categories(
     category_id serial primary key,
     user_id integer references users(user_id),
-    category_name varchar(128)
+    category_name varchar(128),
+    deleted boolean default false
 );
 
 create table months (

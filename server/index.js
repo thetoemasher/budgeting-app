@@ -40,14 +40,13 @@ app.get('/auth/user', authCtrl.currentUser)
 app.get('/auth/logout', authCtrl.logout)
 
 //USER CATEGORIES ENDPOINTS
-app.get('/api/categories', catCtrl.getCategories)
+
 
 //USER MONTHLY CATEGORIES ENDPOINTS
-app.get('/api/monthly-categories', monthlyCatCtrl.getMonthlyCategories)
-app.post('/api/new-monthly-category', monthlyCatCtrl.addMonthlyCategory)
+
 
 //MONTHS ENDPOINTS
-app.get('/api/get-month/:month/:year', monthsCtrl.getMonth)
+
 
 // app.get('*', (req, res) => {
 // 	res.sendFile(path.join(__dirname, '../build/index.html'))

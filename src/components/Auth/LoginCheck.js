@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import axios from 'axios'
-import {updateStore} from '../redux/reducer'
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import React, { Component } from './node_modules/react';
+import axios from './node_modules/axios'
+import {updateStore} from '../../redux/reducer'
+import {connect} from './node_modules/react-redux'
+import {Link} from './node_modules/react-router-dom'
 
 class LoginCheck extends Component {
     constructor() {

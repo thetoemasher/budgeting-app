@@ -15,7 +15,8 @@ module.exports = {
             const db = req.app.get('db')
             const user_id = req.query.user_id ? req.query.user_id : req.session.user.user_id 
             const {category_name} = req.body
-            let categories = await db.categories.add_category([user_id, category_name])
+            await db.categories.add_category([user_id, category_name])
+            let categories = await db.categories.get_categories(user_id)
             res.status(200).send(categories)
         } catch(err) {
             console.log('Error in addCategory method in categories_controller', err)

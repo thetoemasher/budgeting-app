@@ -28,7 +28,7 @@ create table monthly_categories(
     user_id integer references users(user_id),
     category_id integer references categories(category_id),
     category_amount numeric(7, 2),
-    category_total numeric(7, 2),
+    category_total numeric(7, 2) default 0,
     category_diff numeric(7, 2),
     month_id integer references months(month_id)
 );

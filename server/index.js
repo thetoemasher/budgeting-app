@@ -5,8 +5,9 @@ const express=require('express')
     , expressSession = require('express-session')
 	, authCtrl = require('./controllers/auth_controller.js')
 	, categoriesCtrl = require('./controllers/categories_controller.js')
-	// , monthlyCatCtrl = require('./controllers/monthly_categories_controller.js')
+	, monthlyCategoriesCtrl = require('./controllers/monthly_categories_controller.js')
 	, monthsCtrl = require('./controllers/months_controller.js')
+	, paymentsCtrl = require('./controllers/payments_controller.js')
     , path = require('path')
     
 const app=express()
@@ -46,7 +47,12 @@ app.delete('/api/categories/:category_id', categoriesCtrl.deleteCategory)
 app.put('/api/categories/:category_id', categoriesCtrl.updateCategory)
 
 //USER MONTHLY CATEGORIES ENDPOINTS
+app.post('/api/months/:month_id/categories', monthlyCategoriesCtrl.addMonthlyCategory)
+app.get('/api/months/:month_id/categories', monthlyCategoriesCtrl.getMonthlyCategories)
+app.put('/api/months/:month_id/categories/:monthly_category_id', monthlyCategoriesCtrl.updateMonthlyCategory)
 
+//USER PAYMENT ENDPOINTS
+app.get('/api/months/:month_id/payments', paymentsCtrl.getPayments)
 
 //MONTHS ENDPOINTS
 app.get('/api/months', monthsCtrl.getMonths)

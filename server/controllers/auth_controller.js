@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt')
 const _ = require('lodash')
-const {formatMonths} = require('../../_utils/formatMonths')
+
 module.exports = {
     login:	async (req, res)=>{
 		try {
@@ -56,7 +56,6 @@ module.exports = {
 	currentUser: async (req, res) => {
 		const db = req.app.get('db')
 		if(req.session.user) {
-			// let months = await formatMonths(db, req.session.user.user_id)
 			res.status(200).send({user: req.session.user})
 		} else {
 			res.status(200)

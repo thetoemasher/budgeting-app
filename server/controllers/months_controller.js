@@ -19,7 +19,7 @@ module.exports = {
             let {month_id} = req.params
             let monthObj = await db.months.get_month_by_id(month_id)
             let monthly_categories = await await db.monthly_categories.get_monthly_categories_by_month_id(month_id)
-            let payments = await db.payments.get_payments_by_month_id(month_id)
+            let payments = await db.payments.get_payments(month_id)
             monthObj = {...monthObj[0], monthly_categories, payments}
             res.status(200).send(monthObj)
         } catch(err) {
@@ -36,7 +36,7 @@ module.exports = {
             if(monthObj.length) {
                 const month_id = monthObj[0].month_id
                 let monthly_categories = await db.monthly_categories.get_monthly_categories_by_month_id(month_id)
-                let payments = await db.payments.get_payments_by_month_id(month_id)
+                let payments = await db.payments.get_payments(month_id)
                 monthObj = {...monthObj[0], monthly_categories, payments}
                 res.status(200).send(monthObj)
             } else {

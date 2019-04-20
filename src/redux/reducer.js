@@ -1,8 +1,8 @@
 let initialState = {
     months: [],
-    monthlyCategories: [],
     categories: [],
     payments: [],
+    currentMonth: {},
     user: null
 }
 const UPDATE_STORE = 'UPDATE_STORE'

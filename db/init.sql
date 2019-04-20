@@ -20,7 +20,8 @@ create table months (
     year varchar(4),
     month_amount numeric(7, 2),
     month_total numeric(7, 2),
-    month_diff numeric(7, 2)
+    month_diff numeric(7, 2),
+    month_name varchar(12)
 );
 
 create table monthly_categories(

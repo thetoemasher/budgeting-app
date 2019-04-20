@@ -17,7 +17,6 @@ module.exports = {
 			}
 			delete user[0].password
 			req.session.user = user[0]
-			// let months = await formatMonths(db, user[0].user_id)
 			return res.status(200).send({user: req.session.user})
 		} catch (error) {
 			console.log('error logging in user: ', error)
@@ -46,7 +45,6 @@ module.exports = {
 			if(month < 10) month = '0' + (month + 1)
 			let year = date.getFullYear()
 			await db.months.add_month([newUser[0].user_id, month, monthName, year])
-			// let months = formatMonths(db, newUser[0].user_id)
 			return res.status(200).send({user: req.session.user})
 
 		} catch (error) {

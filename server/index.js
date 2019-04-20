@@ -54,6 +54,8 @@ app.put('/api/months/:month_id/categories/:monthly_category_id', monthlyCategori
 //USER PAYMENT ENDPOINTS
 app.get('/api/months/:month_id/payments', paymentsCtrl.getPayments)
 app.post('/api/months/:month_id/payments', paymentsCtrl.addPayment)
+app.put('/api/months/:month_id/payments/:payment_id', paymentsCtrl.updatePayment)
+app.delete('/api/months/:month_id/payments/:payment_id', paymentsCtrl.deletePayment)
 
 //MONTHS ENDPOINTS
 app.get('/api/months', monthsCtrl.getMonths)

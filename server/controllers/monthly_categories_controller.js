@@ -51,5 +51,30 @@ module.exports = {
             console.log('Error in updateMonthlyCategory method in monthly_categories_controller', err)
             res.status(500).send(err)
         }
-    }
+    },
+    deleteMonthlyCategory: async (req, res) => {
+        try {
+            const db = req.app.get('db')
+            const user_id = req.query.user_id ? req.query.user_id : req.session.user.user_id 
+            let {month_id, monthly_category_id} = req.params
+            let not_categorized_id
+            let notCategorizedCheck = await db.monthly_categories.not_categorized_check([month_id])
+            if(!notCategorizedCheck.length) {
+                let notCategorized = await db.monthly_categories.add_not_categorized([user_id, month_id])
+                not_categorized_id = notCategorized[0].monthly_category_id
+            } else {
+                not_categorized_id = notCategorizedCheck[0].monthly_category_id
+            }
+
+            await db.monthly_categories.delete_monthly_category([monthly_category_id, not_categorized_id, month_id, user_id])
+
+            await db.monthly_categories.update_monthly_category_totals(month_id)
+            await db.months.update_month_totals(month_id)
+            let monthly_categories = await db.monthly_categories.get_monthly_categories_by_month_id(month_id)
+            res.status(200).send(monthly_categories)
+        } catch(err) {
+            console.log('Error in deleteMonthlyCategory method in monthly_categories_controller', err)
+            res.status(500).send(err)
+        }
+    },
 }

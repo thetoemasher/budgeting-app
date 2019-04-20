@@ -45,6 +45,7 @@ module.exports = {
 			if(month < 10) month = '0' + (month + 1)
 			let year = date.getFullYear()
 			await db.months.add_month([newUser[0].user_id, month, monthName, year])
+			await db.categories.add_not_categorized(newUser[0].user_id)
 			return res.status(200).send({user: req.session.user})
 
 		} catch (error) {

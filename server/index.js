@@ -50,6 +50,7 @@ app.put('/api/categories/:category_id', categoriesCtrl.updateCategory)
 app.post('/api/months/:month_id/categories', monthlyCategoriesCtrl.addMonthlyCategory)
 app.get('/api/months/:month_id/categories', monthlyCategoriesCtrl.getMonthlyCategories)
 app.put('/api/months/:month_id/categories/:monthly_category_id', monthlyCategoriesCtrl.updateMonthlyCategory)
+app.delete('/api/months/:month_id/categories/:monthly_category_id', monthlyCategoriesCtrl.deleteMonthlyCategory)
 
 //USER PAYMENT ENDPOINTS
 app.get('/api/months/:month_id/payments', paymentsCtrl.getPayments)

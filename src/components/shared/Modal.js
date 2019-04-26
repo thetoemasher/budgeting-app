@@ -1,13 +1,13 @@
 import React from 'react';
 
 function Modal(props) {
-    return (
-        <div onClick={props.close} style={props.outerDiv? props.outerDiv : style.outerDiv}>
-            <div onClick={(e) => e.stopPropagation()} style={props.innerDiv? props.innerDiv : style.innerDiv}>
-                {props.children}
+    const {toggle, close, outerDiv, innerDiv, children} = props
+    return toggle && 
+        <div onClick={close} style={outerDiv? outerDiv : style.outerDiv}>
+            <div onClick={(e) => e.stopPropagation()} style={innerDiv? innerDiv : style.innerDiv}>
+                {children}
             </div>
         </div>
-    );
 }
 
 let style = {

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import Categories from './Categories/Categories'
-// import Payments from './Payments'
+import Payments from './Payments/Payments'
 import Sidebar from './Sidebar/Sidebar'
 import axios from 'axios'
 import {connect} from 'react-redux'
 import {updateStore} from '../../redux/reducer'
+
 
 class Dashboard extends Component {
     constructor() {

@@ -2,14 +2,17 @@ import React, {Component} from 'react'
 import axios from 'axios'
 import {connect} from 'react-redux'
 import {updateStore} from '../../../redux/reducer'
+import Category from './Category'
+import Modal from '../../shared/Modal'
 
 class Categories extends Component{
     constructor() {
         super()
         this.state = {
-            toggleModal: false,
+            toggleEditModal: false,
             clicks: 0,
-            clickedId: null
+            clickedId: null,
+            toggleAddModal: false
         }
     }
     
@@ -18,7 +21,7 @@ class Categories extends Component{
         clicks += 1
         if(clickedId === id) {
             if(clicks >= 2) {
-                this.setState({toggleModal: true})
+                this.setState({toggleEditModal: true})
             } else {
                 this.setState({clicks})
             }
@@ -26,14 +29,20 @@ class Categories extends Component{
             this.setState({clickedId: id, clicks: 1})
         }
     } 
-    handleCloseModal = () => {
-        this.setState({toggleModal: false, clickedId: null, clicks: 0})
+    
+    handleCloseEditModal = () => {
+        this.setState({toggleEditModal: false, clickedId: null, clicks: 0})
     }
+
+    handleAddModal = () => {
+        this.setState({toggleAddModal: !this.state.toggleAddModal})
+    }
+
     render() {
-        console.log(this.state)
-        let {toggleModal} = this.state
+        let {toggleEditModal, clickedId, toggleAddModal} = this.state
         let {monthly_categories, month_amount, month_total, month_diff} = this.props
         monthly_categories = monthly_categories ? monthly_categories : []
+
         let monthlyCategoriesMap = monthly_categories.map(mc => {
             return (
                 <div 
@@ -44,13 +53,23 @@ class Categories extends Component{
                     <p>{mc.category_amount}</p>
                     <p>{mc.category_total}</p>
                     <p>{mc.category_diff}</p>
+                    <Modal 
+                    toggle={toggleEditModal && mc.monthly_category_id === clickedId} 
+                    close={this.handleCloseEditModal}>
+                    <Category 
+                        clickedId={clickedId} 
+                        monthly_category={mc}
+                        edit={true} 
+                        close={this.handleCloseEditModal}/>
+                </Modal>
                 </div>
             )
         })
         return (
             <div>
+                
                 <h2>Categories</h2>
-                {toggleModal && <div onClick={this.handleCloseModal}>Modal Open!</div>}
+                <button onClick={this.handleAddModal}>Add</button>
                 <div>
                     <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>
                         <h3>Name</h3>
@@ -66,8 +85,14 @@ class Categories extends Component{
                         <p>{month_diff}</p>
                     </div>
                 </div>
-                <div>
-                </div>
+                
+                <Modal 
+                    toggle={toggleAddModal} 
+                    close={this.handleAddModal}>
+                    <Category 
+                        monthly_categories={monthly_categories}
+                        close={this.handleAddModal}/>
+                </Modal>
             </div>
         )
     }

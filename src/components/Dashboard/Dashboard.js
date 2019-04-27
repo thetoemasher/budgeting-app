@@ -15,16 +15,28 @@ class Dashboard extends Component {
         }
     }
     componentDidMount() { 
+        this.getCurrnetInfo()
+    }
+
+    componentDidUpdate(prevProps) {
+        if(prevProps.match.params !== this.props.match.params) {
+            this.getCurrnetInfo()
+        }
+    }
+
+    getCurrnetInfo = () => {
         axios.get('/api/months').then(results => {
             this.props.updateStore({months: results.data})
         })
-        let {month, year} = this.getCurrentMonth()
-        axios.get(`/api/months/03/2019`).then(results => {
+        let date = {}
+        if(this.props.match.params.month && this.props.match.params.year) {
+            date = this.props.match.params
+        } else {
+            date = this.getCurrentMonth()
+        }
+        axios.get(`/api/months/${date.month}/${date.year}`).then(results => {
             this.props.updateStore({currentMonth: results.data})
         })
-        // axios.get(`/api/months/${month}/${year}`).then(results => {
-        //     this.props.updateStore({currentMonth: results.data})
-        // })
         axios.get('/api/categories').then(results => {
             this.props.updateStore({categories: results.data})
         })

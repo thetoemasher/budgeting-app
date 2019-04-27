@@ -18,7 +18,6 @@ class LoginCheck extends Component {
             return this.setState({loggedIn: true})
         }
         axios.get('/auth/user').then(results => {
-            console.log(results.data)
             if(results.data.user) {
                 this.props.updateStore({user: results.data.user})
                 this.props.updateStore({months: results.data.months})

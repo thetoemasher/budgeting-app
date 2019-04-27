@@ -1,10 +1,28 @@
 import React, {Component} from 'react'
+import {Link} from 'react-router-dom'
 
 class Month extends Component {
     constructor() {
         super()
         this.state = {
             openMonth: false
+        }
+    }
+    
+    componentDidMount() {
+        this.monthCheck()
+    }
+
+    componentDidUpdate(prevProps) {
+        if(prevProps.currentMonth !== this.props.currentMonth) {
+            this.monthCheck()
+        }
+    }
+    monthCheck = () => {
+        if(this.props.currentMonth && this.props.currentMonth.month === this.props.month.month) {
+            this.setState({openMonth: true})
+        } else {
+            this.setState({openMonth: false})
         }
     }
 
@@ -16,11 +34,10 @@ class Month extends Component {
         const {month} = this.props
         return (
             <div>
-                {this.state.openMonth ? <h5>-</h5> : <h5>+</h5>}
-                <h5 onClick={this.toggleMonth}>{month.month_name}</h5>
+                    <h5 onClick={this.toggleMonth}>{this.state.openMonth ? '-' : '+'} {month.month_name}</h5>
                 {this.state.openMonth && (
                     <div>
-                        <p>Monthly Budget: ${month.month_amount}</p>
+                        <Link to={`/dashboard/${month.month}/${month.year}`}><p>Monthly Budget: ${month.month_amount}</p></Link>
                     </div>
                 )}
 

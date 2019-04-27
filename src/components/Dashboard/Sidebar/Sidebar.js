@@ -4,16 +4,15 @@ import Year from './Year'
 
 function Sidebar(props) {
     let monthsStuff = []
-    console.log(props.months)
     for(let prop in props.months) {
         let months = props.months[prop]
         monthsStuff.push(
-            <div>
-                <Year year={prop} months={months} key={prop}/>
+            <div key={prop}>
+                <Year year={prop} months={months} currentMonth={props.currentMonth} key={prop}/>
             </div>
         )
     }
-
+console.log(props.currentMonth)
     return (
         <div>
             {monthsStuff}
@@ -23,7 +22,8 @@ function Sidebar(props) {
 
 function mapStateToProps(state) {
     return {
-        months: state.months
+        months: state.months,
+        currentMonth: state.currentMonth
     }
 }
 

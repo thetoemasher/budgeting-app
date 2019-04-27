@@ -48,7 +48,6 @@ class Category extends Component {
                 
             }
             const monthsResults = await axios.get(`/api/months/${month_id}`)
-            console.log(monthsResults)
             updateStore({currentMonth: monthsResults.data})
             close()
         }  else {

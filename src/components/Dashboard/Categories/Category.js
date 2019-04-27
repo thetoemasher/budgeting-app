@@ -51,7 +51,6 @@ class Category extends Component {
     }
 
     render() {
-        console.log(this.props.monthly_category)
         const {category_amount, category_id, new_category_name} = this.state
         const {handleChange} = this
         const {monthly_categories, clickedId, edit} = this.props

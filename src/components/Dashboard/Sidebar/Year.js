@@ -9,6 +9,23 @@ class Year extends Component {
         }
     }
 
+    componentDidMount() {
+        this.yearCheck()
+    }
+
+    componentDidUpdate(prevProps) {
+        if(prevProps.currentMonth !== this.props.currentMonth) {
+            this.yearCheck()
+        }
+    }
+    yearCheck = () => {
+        if(this.props.currentMonth && this.props.currentMonth.year === this.props.year) {
+            this.setState({openYear: true})
+        } else {
+            this.setState({openYear: false})
+        }
+    }
+
     toggleYear = () => {
         this.setState({openYear: !this.state.openYear})
     }
@@ -16,13 +33,12 @@ class Year extends Component {
     render() {
         let months = this.props.months.map(month => {
                 return (
-                    <Month month={month} key={month.month_id}/>
+                    <Month month={month} key={month.month_id} currentMonth={this.props.currentMonth}/>
                 )
             })
         return (
             <div>
-                {this.state.openYear ? <h3>-</h3> : <h3>+</h3>}
-                <h3 onClick={this.toggleYear}>{this.props.year}</h3>
+                    <h3 onClick={this.toggleYear}>{this.state.openYear ? '-' : '+'} {this.props.year}</h3>
                 {this.state.openYear && <div>
                     {months}
                     </div>}

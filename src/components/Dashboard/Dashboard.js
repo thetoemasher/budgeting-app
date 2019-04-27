@@ -46,18 +46,22 @@ class Dashboard extends Component {
     }
 
   render() {
-    // console.log(this.props)
-    const {monthly_categories, month_name, month_amount, month_total, month_diff} = this.props.currentMonth
+    const {monthly_categories, month_name, month_amount, month_total, month_diff, payments} = this.props.currentMonth
     return (
         <div>
-            {/* <Sidebar currentMonth={currentMonth}/> */}
+            <Sidebar currentMonth={this.props.currentMonth}/> 
             <div>
                 <h1>Monthly Budget for {month_name ? month_name : ''}</h1>
+
                 <Categories 
                     monthly_categories={monthly_categories} 
                     month_amount={month_amount} 
                     month_total={month_total} 
                     month_diff={month_diff} />
+                <hr/>
+                {payments && <Payments 
+                    payments={payments}/>
+                }
             </div>
         </div>
     );

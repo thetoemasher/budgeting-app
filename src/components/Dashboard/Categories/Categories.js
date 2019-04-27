@@ -42,7 +42,6 @@ class Categories extends Component{
         let {toggleEditModal, clickedId, toggleAddModal} = this.state
         let {monthly_categories, month_amount, month_total, month_diff} = this.props
         monthly_categories = monthly_categories ? monthly_categories : []
-
         let monthlyCategoriesMap = monthly_categories.map(mc => {
             return (
                 <div 
@@ -53,15 +52,18 @@ class Categories extends Component{
                     <p>{mc.category_amount}</p>
                     <p>{mc.category_total}</p>
                     <p>{mc.category_diff}</p>
-                    <Modal 
-                    toggle={toggleEditModal && mc.monthly_category_id === clickedId} 
-                    close={this.handleCloseEditModal}>
-                    <Category 
-                        clickedId={clickedId} 
-                        monthly_category={mc}
-                        edit={true} 
-                        close={this.handleCloseEditModal}/>
-                </Modal>
+                    <div onClick={(e) => e.stopPropagation()}>
+                        <Modal 
+                        toggle={toggleEditModal && mc.monthly_category_id === clickedId} 
+                        close={this.handleCloseEditModal}>
+                            <Category 
+                                clickedId={clickedId} 
+                                monthly_category={mc}
+                                edit={true} 
+                                close={this.handleCloseEditModal}/>
+                        </Modal>
+
+                    </div>
                 </div>
             )
         })

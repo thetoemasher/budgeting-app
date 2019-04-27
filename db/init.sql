@@ -39,7 +39,7 @@ create table payments(
     user_id integer references users(user_id),
     payment_type varchar(128),
     payment_amount numeric(7, 2),
-    payment_date date,
+    payment_date varchar(10),
     monthly_category_id integer references monthly_categories(monthly_category_id),
     payment_desc varchar(255),
     month_id integer references months(month_id)

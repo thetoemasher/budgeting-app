@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import axios from 'axios'
 import {connect} from 'react-redux'
 import {updateStore} from '../../../redux/reducer'
 import Modal from '../../shared/Modal'
@@ -21,13 +20,18 @@ class Payments extends Component{
         clicks += 1
         if(clickedId === id) {
             if(clicks >= 2) {
-                this.setState({toggleEditModal: true})
+                this.setState({toggleEditModal: true, clicks})
             } else {
                 this.setState({clicks})
             }
         } else {
             this.setState({clickedId: id, clicks: 1})
         }
+        setTimeout(() => {
+            if(this.state.clicks <2) {
+                this.setState({toggleEditModal: false, clickedId: null, clicks: 0})
+            }
+        }, 500)
     } 
     
     handleCloseEditModal = () => {

@@ -5,6 +5,7 @@ import Sidebar from './Sidebar/Sidebar'
 import axios from 'axios'
 import {connect} from 'react-redux'
 import {updateStore} from '../../redux/reducer'
+import './Dashboard.css'
 
 
 class Dashboard extends Component {
@@ -60,9 +61,9 @@ class Dashboard extends Component {
   render() {
     const {monthly_categories, month_name, month_amount, month_total, month_diff, payments} = this.props.currentMonth
     return (
-        <div>
+        <div className='dashboard-container'>
             <Sidebar currentMonth={this.props.currentMonth}/> 
-            <div>
+            <div className='budget-container'>
                 <h1>Monthly Budget for {month_name ? month_name : ''}</h1>
 
                 <Categories 

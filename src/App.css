@@ -1,0 +1,12 @@
+.nav-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 25px
+}
+
+/* h1 {
+    font-size: 200%;
+    font-weight: 700;
+} */

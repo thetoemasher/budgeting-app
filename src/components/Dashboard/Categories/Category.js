@@ -15,8 +15,8 @@ class Category extends Component {
 
     componentDidMount() {
         const {edit, monthly_category} = this.props
-        const {category_id, category_amount} = monthly_category
         if(edit) {
+            const {category_id, category_amount} = monthly_category
             this.setState({category_id, category_amount})
         }
     }

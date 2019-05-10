@@ -14,12 +14,12 @@ function logout(props) {
 function Nav(props) {
     const {user} = props
     return (
-        <div>
+        <div className='nav-header'>
             <h1>Budgeting App Woo</h1>
             {
                 user ? 
-                <button onClick={() => logout(props)}>Logout</button> :
-                <Link to='/'><button>Login</button></Link>
+                <p onClick={() => logout(props)}>Logout</p> :
+                <Link to='/'><p>Login</p></Link>
             }
         </div>
     )

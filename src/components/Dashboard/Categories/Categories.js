@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import axios from 'axios'
 import {connect} from 'react-redux'
 import {updateStore} from '../../../redux/reducer'
 import Category from './Category'
@@ -21,13 +20,18 @@ class Categories extends Component{
         clicks += 1
         if(clickedId === id) {
             if(clicks >= 2) {
-                this.setState({toggleEditModal: true})
+                this.setState({toggleEditModal: true, clicks})
             } else {
                 this.setState({clicks})
             }
         } else {
             this.setState({clickedId: id, clicks: 1})
         }
+        setTimeout(() => {
+            if(this.state.clicks <2) {
+                this.setState({toggleEditModal: false, clickedId: null, clicks: 0})
+            }
+        }, 500)
     } 
     
     handleCloseEditModal = () => {
@@ -49,9 +53,9 @@ class Categories extends Component{
                     style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}
                     onClick={() => this.handleDoubleClick(mc.monthly_category_id)}>
                     <p>{mc.category_name}</p>
-                    <p>{mc.category_amount}</p>
-                    <p>{mc.category_total}</p>
-                    <p>{mc.category_diff}</p>
+                    <p>${mc.category_amount}</p>
+                    <p>${mc.category_total}</p>
+                    <p>${mc.category_diff}</p>
                     <div onClick={(e) => e.stopPropagation()}>
                         <Modal 
                         toggle={toggleEditModal && mc.monthly_category_id === clickedId} 
@@ -82,9 +86,9 @@ class Categories extends Component{
                     {monthlyCategoriesMap}
                     <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>
                         <p>Total</p>
-                        <p>{month_amount}</p>
-                        <p>{month_total}</p>
-                        <p>{month_diff}</p>
+                        <p>${month_amount}</p>
+                        <p>${month_total}</p>
+                        <p>${month_diff}</p>
                     </div>
                 </div>
                 

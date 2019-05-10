@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {connect} from 'react-redux'
 import Year from './Year'
 
@@ -12,9 +12,8 @@ function Sidebar(props) {
             </div>
         )
     }
-console.log(props.currentMonth)
     return (
-        <div>
+        <div className='sidebar-container'>
             {monthsStuff}
         </div>
     );

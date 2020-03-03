@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import {Switch, Route, withRouter} from 'react-router-dom'
 import Login from './components/Auth/Login.js'
@@ -7,22 +7,21 @@ import LoginCheck from './components/Auth/LoginCheck.js'
 import Nav from './components/Nav.js'
 import Register from './components/Register';
 
-class App extends Component {
-  render() {
-    const {pathname} = this.props.location
+function App (props) {
+  const [user, setUser] = useState(null)
+    const {pathname} = props.location
     return (
       <div>
-        {pathname !== '/' && pathname !== '/register' && <Nav/>}
+        {pathname !== '/' && pathname !== '/register' && <Nav user={user} setUser={setUser}/>}
         <Switch>
-          <Route exact path='/' component={Login}/>
-          <Route exact path='/register' component={Register}/>
-          <LoginCheck>
-            <Route path='/dashboard' component={Dashboard}/>
+          <Route exact path='/' render={() => <Login user={user} setUser={setUser}/>}/>
+          <Route exact path='/register' render={() => <Register user={user} setUser={setUser}/>}/>
+          <LoginCheck user={user} setUser={setUser}>
+            <Route path='/dashboard' render={() => <Dashboard user={user} setUser={setUser}/>}/>
           </LoginCheck>
         </Switch>
       </div>
     );
-  }
 }
 
 

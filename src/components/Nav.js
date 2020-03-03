@@ -1,14 +1,11 @@
 import React from 'react'
 import axios from 'axios'
-import {connect} from 'react-redux'
-import {updateStore} from '../redux/reducer'
 import {Link, withRouter} from 'react-router-dom'
 
-function logout(props) {
-    axios.get('/auth/logout').then(results => {
-        props.updateStore({user: null})
-        props.history.push('/')
-    })
+async function logout(props) {
+    const logoutRes = await axios.get('/auth/logout')
+    props.setUser(null)
+    props.history.push('/')
 }
 
 function Nav(props) {
@@ -25,10 +22,4 @@ function Nav(props) {
     )
 }
 
-function mapStateToProps(state) {
-    return {
-        user: state.user
-    }
-}
-
-export default withRouter(connect(mapStateToProps, {updateStore})(Nav))
+export default withRouter(Nav)

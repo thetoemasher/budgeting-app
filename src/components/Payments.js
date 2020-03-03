@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import Modal from './shared/Modal'
 import {amountFormater} from '../_utils/formaters'
-import {connect} from 'react-redux'
-import {updateStore} from '../redux/reducer'
 
 class Payments extends Component {
     constructor() {
@@ -142,11 +140,5 @@ let styles = {
         justifyContent: 'space-between'
     }
 }
-function mapStateToProps(state) {
-    return {
-        payments: state.payments,
-        categories: state.categories
-    }
-}
 
-export default connect(mapStateToProps, {updateStore})(Payments);
+export default Payments;

@@ -4,7 +4,7 @@ module.exports = {
 		try {
 			let db = req.app.get('db')
 			let { email, password } = req.body;
-            let user = await db.auth.get_user([email])
+			let user = await db.auth.get_user([email])
             
             if(!user[0]) {
 				return res.status(200).send({error: 'User not found. Please try again or create an account.'})
@@ -50,5 +50,16 @@ module.exports = {
 	logout: (req, res) => {
 		req.session.destroy()
 		res.sendStatus(200)
+	},
+	forgotPassword: async (req, res) => {
+		//for forgotten passwords
+		//create token and email link to user
+		//link will contain token
+		//create front end that goes to that link for resetting password
+	},
+	changePassword: async (req, res) => {
+		//takes in user, password, and forgot password token
+		//checks for user with token
+		//if finds then hash password and update users password and remove the token
 	}
 }

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios'
-import {updateStore} from '../redux/reducer'
+import {updateStore} from '../../redux/reducer'
 import {connect} from 'react-redux'
-import {emailCheck, passwordCheck} from '../_utils/formValidation'
+import {emailCheck, passwordCheck} from '../../_utils/formValidation'
 import {Link} from 'react-router-dom'
 
 
@@ -10,8 +10,8 @@ class Login extends Component {
     constructor() {
         super()
         this.state = {
-            email: '',
-            password: '',
+            email: 'tomeschcody@gmail.com',
+            password: 'Concert06',
             error: ''
         }
     }
@@ -32,7 +32,8 @@ class Login extends Component {
 
     handleLogin = (e) => {
       e.preventDefault()
-      const {email, password} = this.state
+      let {email, password} = this.state
+      email = email.trim();
       let emailTest = emailCheck(email)
       let passwordTest = passwordCheck(password)
 
@@ -43,7 +44,7 @@ class Login extends Component {
         return this.setState({error: "Password must include be at least 8 characters long, contain 1 uppercase letter, 1 lowercase letter, and 1 number"})
       }
       if(email && password) {
-        axios.post('/auth/login', this.state).then(results => {
+        axios.post('/auth/login', {email, password}).then(results => {
           if(results.data.user) {
             this.props.updateStore({user: results.data.user})
             this.props.history.push('/dashboard')

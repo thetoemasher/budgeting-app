@@ -13,7 +13,7 @@ module.exports = {
                 }
             });
             res.send(orderedMonths)
-        } catch(err) {
+        } catch(error) {
             console.log('error logging in user: ', error)
 			res.status(500).send({error})
         }       

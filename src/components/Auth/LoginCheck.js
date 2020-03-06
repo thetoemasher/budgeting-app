@@ -13,8 +13,10 @@ function LoginCheck(props) {
             } else {
                 try {
                     const userRes = await axios.get('/auth/user')
-                    props.setUser(userRes.data.user)
-                    setLoggedIn(true)
+                    if(userRes.data.user) {
+                        props.setUser(userRes.data.user)
+                        setLoggedIn(true)
+                    }
                 } catch (err) {
                     console.log('error', err)
                 }
@@ -22,7 +24,6 @@ function LoginCheck(props) {
         }
         fetchData()
     })
-
     return (
         <div>
             {
@@ -39,45 +40,5 @@ function LoginCheck(props) {
         </div>
       );
 }
-
-// class LoginCheck extends Component {
-//     constructor() {
-//         super()
-//         this.state = {
-//             loggedIn: false
-//         }
-//     }
-
-
-//     componentDidMount() {
-//         if(this.props.user) {
-//             return this.setState({loggedIn: true})
-//         }
-//         axios.get('/auth/user').then(results => {
-//             if(results.data.user) {
-//                 this.props.updateStore({user: results.data.user})
-//                 this.setState({loggedIn: true})
-//             }
-//         })
-//     }
-
-//   render() {
-//     return (
-//       <div>
-//           {
-//               this.state.loggedIn ? 
-//               <div>
-//                   {this.props.children}
-//               </div> :
-//               <div>
-//                   You must be logged in to view this page
-//                   <Link to='/'>Login</Link>
-//               </div>
-//           }
-        
-//       </div>
-//     );
-//   }
-// }
 
 export default withRouter(LoginCheck);

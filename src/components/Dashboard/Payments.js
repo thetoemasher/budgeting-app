@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Modal from './shared/Modal'
-import {amountFormater} from '../_utils/formaters'
+import Modal from '../shared/Modal'
+import {amountFormater} from '../../_utils/formaters'
 
 class Payments extends Component {
     constructor() {

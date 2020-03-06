@@ -3,7 +3,7 @@ import axios from 'axios'
 import {Link, withRouter} from 'react-router-dom'
 
 async function logout(props) {
-    const logoutRes = await axios.get('/auth/logout')
+    await axios.get('/auth/logout')
     props.setUser(null)
     props.history.push('/')
 }

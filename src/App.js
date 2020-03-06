@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import './App.css';
 import {Switch, Route, withRouter} from 'react-router-dom'
 import Login from './components/Auth/Login.js'
-import Dashboard from './components/Dashboard.js'
+import Dashboard from './components/Dashboard/Dashboard.js'
 import LoginCheck from './components/Auth/LoginCheck.js'
 import Nav from './components/Nav.js'
-import Register from './components/Register';
+import Register from './components/Auth/Register';
 
 function App (props) {
   const [user, setUser] = useState(null)

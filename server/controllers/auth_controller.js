@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt')
+const {newMonth} = require('../_utils/chronfns')
 module.exports = {
     login:	async (req, res)=>{
 		try {
@@ -36,6 +37,9 @@ module.exports = {
 
 			let newUser = await db.auth.create_user([email, first_name, last_name, hash]);
 			req.session.user = newUser[0]
+			const {user_id} = newUser[0]
+			const noCat = await db.categories.create_no_category([user_id])
+			await newMonth(db, user_id, 0, 0, noCat.category_id)
 
 			return res.status(200).send({user: req.session.user})
 

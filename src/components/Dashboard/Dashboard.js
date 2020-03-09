@@ -30,6 +30,7 @@ function Dashboard(props) {
         }
         fetchData()
     }, [firstLoad]) 
+    console.log('current', currentMonth)
 
     useEffect(() => {
         async function fetchData() {
@@ -65,7 +66,8 @@ function Dashboard(props) {
                 if(m.month === currentMonth.month && m.year === currentMonth.year) {
                     color = 'red'
                 }
-                return <div style={{marginLeft: 15, color}} key={m.month_id} onClick={() => setCurrentMonth(m)}>{m.month_name}</div>
+                const monthName = getMonthName(m.month)
+                return <div style={{marginLeft: 15, color}} key={m.month_id} onClick={() => setCurrentMonth(m)}>{monthName}</div>
             })
             yearAndMonths.push(<div key={year}>{year}{monthMap}</div>)
         }

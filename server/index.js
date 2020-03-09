@@ -9,6 +9,7 @@ const monthCtrl = require('./controllers/months_controller.js')
 const monthCatCtrl = require('./controllers/month_categories_controller.js')
 const path = require('path')
 const app=express()
+const {newMonth} = require('./_utils/chronfns')
 
 const { CONNECTION_STRING, 
     	SESSION_SECRET, 
@@ -55,6 +56,11 @@ app.get('/api/months/:month_id', monthCtrl.getMonthById)
 app.get('/api/month/:month_id/categories', monthCatCtrl.getMonthCategories)
 app.post('/api/month/:month_id/categories/add', monthCatCtrl.addMonthCategory)
 
+app.get('/api/testing', async (req, res) => {
+	const db = req.app.get('db')
+	await newMonth(db, 19)
+	res.send('done')
+})
 // app.get('*', (req, res) => {
 // 	res.sendFile(path.join(__dirname, '../build/index.html'))
 // })

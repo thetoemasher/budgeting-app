@@ -33,5 +33,26 @@ module.exports = {
     delete: async (req, res) => {
         const db = req.app.get('db')
         
+    },
+    recalculateMonthCats: async (req, res) => {
+        try {
+            const db = req.app.get('db')
+            const {user_id} = req.session.user
+            const {month_id} = req.params
+            const months = await db.months.update_month_values(user_id, month_id)
+            const orderedMonths = {}
+            months.forEach(m => {
+                if(orderedMonths[m.year]) {
+                    orderedMonths[m.year].push(m)
+                } else {
+                    orderedMonths[m.year] = [m]
+                }
+            });
+            res.send(orderedMonths)
+            //update_month_values
+        } catch (err) {
+            console.log('error', err)
+            res.status(500).send(err)
+        }
     }
 }

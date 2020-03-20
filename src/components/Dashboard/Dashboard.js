@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Categories from './Categories'
-// import Payments from './Payments'
+import Payments from './Payments'
 import {getMonthName} from '../../_utils/formaters'
 import axios from 'axios'
 
@@ -10,6 +10,7 @@ function Dashboard(props) {
     const [categories, setCategories] = useState([]);
     const [userMonths, setUserMonths] = useState([]);
     const [monthlyCategories, setMonthlyCategories] = useState([]);
+    const [payments, setPayments] = useState([]);
     const [firstLoad, setFirstLoad] = useState(true);
 
     useEffect(() => {
@@ -30,7 +31,7 @@ function Dashboard(props) {
         }
         fetchData()
     }, [firstLoad]) 
-    console.log('current', currentMonth)
+    // console.log('current', currentMonth)
 
     useEffect(() => {
         async function fetchData() {
@@ -39,6 +40,9 @@ function Dashboard(props) {
                     setMonthlyCategories([])
                     const monthlyCategoriesRes = await axios.get(`/api/month/${currentMonth.month_id}/categories`)
                     setMonthlyCategories(monthlyCategoriesRes.data)
+                    setPayments([])
+                    const paymentsRes = await axios.get(`/api/month/${currentMonth.month_id}/payments`)
+                    setPayments(paymentsRes.data)
                 }
             } catch (err) {
                 console.log('error', err)
@@ -73,7 +77,6 @@ function Dashboard(props) {
         }
         return yearAndMonths
     }
-
         const currentMonthName = currentMonth ? getMonthName(currentMonth.month) : ''
         return (
             <div>
@@ -83,10 +86,15 @@ function Dashboard(props) {
                     currentMonth={currentMonth} 
                     monthlyCategories={monthlyCategories} 
                     categories={categories}
+                    setCategories={setCategories}
                     // updateState={this.updateState}
                     recalculateMonthsAndUpdateCurrentMonth={recalculateMonthsAndUpdateCurrentMonth} />
-                    <button onClick={recalculateMonthsAndUpdateCurrentMonth}>Recalculate</button>
-                {/* <Payments currentMonth={currentMonth}/> */}
+                <Payments 
+                    currentMonth={currentMonth} 
+                    payments={payments}
+                    monthlyCategories={monthlyCategories} 
+                    setPayments={setPayments}
+                    />
             </div>
         );
 

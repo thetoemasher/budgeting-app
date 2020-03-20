@@ -7,7 +7,6 @@ module.exports = {
             const months = await db.months.get_user_months(user_id);
             const orderedMonths = {}
             months.forEach(m => {
-                console.log(m.year)
                 const year = parseInt(m.year)
                 if(orderedMonths[year]) {
                     orderedMonths[year].push(m)

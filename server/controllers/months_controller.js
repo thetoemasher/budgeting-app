@@ -2,8 +2,8 @@ module.exports = {
     getUserMonths: async (req, res) => {
         try {
             const db = req.app.get('db')
-            // const {user_id} = req.session.user
-            const user_id = 19;
+            const {user_id} = req.session.user
+            // const user_id = 19;
             const months = await db.months.get_user_months(user_id);
             const orderedMonths = {}
             months.forEach(m => {

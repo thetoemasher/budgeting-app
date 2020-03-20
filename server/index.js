@@ -2,14 +2,17 @@ require('dotenv').config()
 const express=require('express') 
 const massive=require('massive')
 const bodyPar=require('body-parser')
+const CronJob = require('cron').CronJob
 const expressSession = require('express-session')
 const authCtrl = require('./controllers/auth_controller.js')
 const catCtrl = require('./controllers/categories_controller.js')
 const monthCtrl = require('./controllers/months_controller.js')
 const monthCatCtrl = require('./controllers/month_categories_controller.js')
+const paymentCtrl = require('./controllers/payments_controller.js')
 const path = require('path')
 const app=express()
-const {newMonth} = require('./_utils/chronfns')
+const {newMonth, newMonthChron} = require('./_utils/chronfns')
+
 
 const { CONNECTION_STRING, 
     	SESSION_SECRET, 
@@ -29,6 +32,11 @@ massive(CONNECTION_STRING).then(db=>{
 		console.log('error', err)
 	}
 })
+
+const job = new CronJob('0 0 0 1 * *', function() {
+	newMonthChron()
+})
+job.start()
 
 app.use(bodyPar.json())
 app.use(session)
@@ -56,11 +64,24 @@ app.get('/api/months/:month_id', monthCtrl.getMonthById)
 app.get('/api/month/:month_id/categories', monthCatCtrl.getMonthCategories)
 app.post('/api/month/:month_id/categories/add', monthCatCtrl.addMonthCategory)
 
-app.get('/api/testing', async (req, res) => {
-	const db = req.app.get('db')
-	await newMonth(db, 19)
-	res.send('done')
-})
+
+//PAYMENT ENDPOINTS
+app.get('/api/month/:month_id/payments', paymentCtrl.getPayments)
+app.post('/api/month/:month_id/payments', paymentCtrl.addPayment)
+app.put('/api/month/:month_id/payments/:payment_id', paymentCtrl.updatePayment)
+app.delete('/api/month/:month_id/payments/:payment_id', paymentCtrl.deletePayment)
+
+
+// app.get('/api/testing', async (req, res) => {
+// 	try {
+// 		const db = req.app.get('db')
+// 		await newMonthChron(db)
+// 		res.send('done')
+// 	} catch (err) {
+// 		console.log('error', err)
+// 		res.status(500).send(err)
+// 	}
+// })
 // app.get('*', (req, res) => {
 // 	res.sendFile(path.join(__dirname, '../build/index.html'))
 // })

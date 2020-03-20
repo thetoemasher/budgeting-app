@@ -3,13 +3,16 @@ module.exports = {
         try {
             const db = req.app.get('db')
             const {user_id} = req.session.user
+            // const user_id = 19;
             const months = await db.months.get_user_months(user_id);
             const orderedMonths = {}
             months.forEach(m => {
-                if(orderedMonths[m.year]) {
-                    orderedMonths[m.year].push(m)
+                console.log(m.year)
+                const year = parseInt(m.year)
+                if(orderedMonths[year]) {
+                    orderedMonths[year].push(m)
                 } else {
-                    orderedMonths[m.year] = [m]
+                    orderedMonths[year] = [m]
                 }
             });
             res.send(orderedMonths)

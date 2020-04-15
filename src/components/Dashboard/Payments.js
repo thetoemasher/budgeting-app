@@ -29,15 +29,17 @@ function Payments(props) {
             payment_description: paymentDescription
         }
         try {
-            const paymentsRes = await axios.post('/api/months/${currentMonth.month_id}/payments', payment)
+            const paymentsRes = await axios.post(`/api/month/${props.currentMonth.month_id}/payments`, payment)
             props.setPayments(paymentsRes.data)
+            setAddPayment(false)
+            const monthlyCatsRes = await axios.get(`/api/month/${props.currentMonth.month_id}/categories/recalculate`)
+            props.setMonthlyCategories(monthlyCatsRes.data)
         } catch (err) {
             console.log('error', err)
         }
 
 
     }
-    console.log(props.monthlyCategories)
     let catOptions = props.monthlyCategories.map(monthlyCat => {
         if(monthlyCat.category_name !== 'No Category')
         {

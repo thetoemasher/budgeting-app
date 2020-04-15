@@ -63,6 +63,7 @@ app.get('/api/months/:month_id', monthCtrl.getMonthById)
 //MONTH CATEGORY ENDPOINTS
 app.get('/api/month/:month_id/categories', monthCatCtrl.getMonthCategories)
 app.post('/api/month/:month_id/categories/add', monthCatCtrl.addMonthCategory)
+app.get('/api/month/:month_id/categories/recalculate', monthCatCtrl.recalculateMonthCats)
 
 
 //PAYMENT ENDPOINTS

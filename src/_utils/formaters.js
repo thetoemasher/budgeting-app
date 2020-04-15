@@ -9,10 +9,13 @@ function amountFormater(amount) {
     } 
     return split.join('.')
 }
+
+
 function getMonthName(monthNum) {
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     return months[monthNum - 1]
 }
+
 module.exports = {
     amountFormater,
     getMonthName

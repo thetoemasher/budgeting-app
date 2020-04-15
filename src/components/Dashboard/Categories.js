@@ -22,26 +22,29 @@ function Categories(props) {
             const newCategoryRes = await axios.post('/api/categories/add', {category_name: newCategoryName})
             const {category, categories} = newCategoryRes.data
             if(categories) {
-                props.updateState({categories})
+                props.setCategories(categories)
             }
             catID = category.category_id
         }
         const monthlyCategoriesRes = await axios.post('/api/month/'+currentMonth.month_id+'/categories/add', {category_id:catID, category_amount:categoryAmount})
-        props.updateState({monthlyCategories: monthlyCategoriesRes.data})
+        props.setMonthlyCategories(monthlyCategoriesRes.data)
         toggleAddCategory()
         props.recalculateMonthsAndUpdateCurrentMonth()
     }
 
     const {currentMonth, monthlyCategories, categories} = props
     let monthlyCats = monthlyCategories.map(mc => {
-        return (
-            <div style={styles.monthlyCategories} key={mc.monthly_category_id}>
-                <p>{mc.category_name}</p>
-                <p>${mc.category_amount}</p>
-                <p>${mc.category_total}</p>
-                <p>${mc.category_diff}</p>
-            </div>
-        )
+        if(mc.category_name !== 'No Category' && mc.category_amount !== 0.00) {
+            return (
+                <div style={styles.monthlyCategories} key={mc.monthly_category_id}>
+                    <p>{mc.category_name}</p>
+                    <p>${mc.category_amount}</p>
+                    <p>${mc.category_total}</p>
+                    <p>${mc.category_diff}</p>
+                </div>
+            )
+        }
+        return null
     })
     let catOptions = [];
     categories.forEach(c => {

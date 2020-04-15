@@ -39,17 +39,10 @@ module.exports = {
             const db = req.app.get('db')
             const {user_id} = req.session.user
             const {month_id} = req.params
-            const months = await db.months.update_month_values(user_id, month_id)
-            const orderedMonths = {}
-            months.forEach(m => {
-                if(orderedMonths[m.year]) {
-                    orderedMonths[m.year].push(m)
-                } else {
-                    orderedMonths[m.year] = [m]
-                }
-            });
-            res.send(orderedMonths)
-            //update_month_values
+            await db.monthCats.update_monthly_categories_values(user_id, month_id)
+            const monthlyCategories = await db.monthCats.get_user_monthly_categories(user_id, month_id)
+            
+            res.send(monthlyCategories)
         } catch (err) {
             console.log('error', err)
             res.status(500).send(err)

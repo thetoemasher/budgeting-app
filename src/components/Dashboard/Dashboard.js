@@ -87,12 +87,13 @@ function Dashboard(props) {
                     monthlyCategories={monthlyCategories} 
                     categories={categories}
                     setCategories={setCategories}
-                    // updateState={this.updateState}
+                    setMonthlyCategories={setMonthlyCategories}
                     recalculateMonthsAndUpdateCurrentMonth={recalculateMonthsAndUpdateCurrentMonth} />
                 <Payments 
                     currentMonth={currentMonth} 
                     payments={payments}
                     monthlyCategories={monthlyCategories} 
+                    setMonthlyCategories={setMonthlyCategories}
                     setPayments={setPayments}
                     />
             </div>
